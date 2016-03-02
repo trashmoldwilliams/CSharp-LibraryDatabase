@@ -1,0 +1,38 @@
+<h2>Here are @Model["student"].GetName() courses:</h2>
+
+@if(Model["courses"].Count == 0)
+{
+  <h3>Ooops, @Model["student"].GetName() doesn't have any courses</h3>
+}
+else
+{
+  @foreach(var course in @Model["courses"])
+  {
+    <li>
+      @course.GetName() |
+      <a href="/course/edit/@course.GetId()">Edit</a>
+      <form action="/course/delete/@course.GetId()" method="post">
+        <input type="hidden" name="_method" value="DELETE">
+        <button type="submit">Delete</button>
+      </form>
+    </li>
+  }
+}
+
+<h3><a href="/student">Return back to students</a></h3>
+<br>
+<h3>Add a new course:</h3>
+<form action='/students/@Model["student"].GetId()/new' method="post">
+  <label for="name">Name:</label>
+  <input id="name" name="name" type="text">
+  <br>
+  <label for="student-id">Student:</label>
+  <select name="student-id">
+    @foreach (var student in @Model["students"])
+    {
+      <option value="@student.GetId()">@student.GetName()</option>
+    }
+  </select>
+  <br>
+  <button type="submit">Add new course</button>
+</form>

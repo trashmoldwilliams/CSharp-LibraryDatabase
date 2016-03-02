@@ -1,0 +1,22 @@
+@if (@Model.Count == 0)
+{
+  <h3>We don't have any available Students at all, sorry.</h3>
+}
+
+
+
+  <h1>Students</h1>
+  @foreach (var student in @Model)
+  {
+    <li><a href="/student/@student.GetId()">@student.GetName()</a> | <a href="/student/edit/@student.GetId()">Edit</a>|<form action="/student/delete/@student.GetId()" method="post"><input type="hidden" name="_method" value="DELETE"><button type="submit">Delete</button></form></li>
+  }
+
+  <h2>Add Student</h2>
+  <form action="/students/new" method="post">
+  <label for="student-name">Student Name:</label>
+  <input id="student-name" name="student-name" type="text">
+  <label for="student-date">Date of enrollement</label>
+  <input type="date" name="student-date" id="student-name">
+  <button type="submit">Add</button>
+  <hr>
+  <h4><a href="/">Return Home</a></h4>
